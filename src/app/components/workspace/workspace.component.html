@@ -1,0 +1,85 @@
+<div class="editor">
+    <div class="waveaudio" id="waveAudioWrap"></div>
+    <div class="options">
+        <h1>Effects <button type="button" #popover="ngbPopover" placement="bottom" [ngbPopover]="popCreateEffect" class="btn btn-outline-danger" >Create</button></h1>
+        <template #popCreateEffect>
+            <app-create-effect [waveAudio]="waveAudio" [popover]="popover"></app-create-effect>
+        </template>
+        <div class="effects-list-wrapper row">
+            <div class="effects-list col-sm-3" *ngIf="waveAudio.effects.length > 0">
+                <div class="effect-item"
+                        *ngFor="let effect of waveAudio.effects"
+                        (click)="selected = effect"
+                        [ngClass]="{'active': selected === effect}">
+                    <i class="effect-notification fa fa-square-o" aria-hidden="true"></i>
+                    <span class="effect-name">{{effect.effect}}</span> <span>from</span>
+                    <span class="effect-time">{{convertToTime(effect.indexStart)}}</span> <span>to</span>
+                    <span class="effect-time">{{convertToTime(effect.indexEnd)}}</span>
+                    <div class="options-wrapper">
+                        <a class="options-add" (click)="removeEffect($event, effect)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="effect-editor-empty col-sm-5" *ngIf="waveAudio.loadedFiles.length === 0">
+            select an audio file from the right side
+            </div>
+            <div class="effect-editor-empty col-sm-5" *ngIf="waveAudio.loadedFiles.length > 0 && waveAudio.effects.length === 0">
+            add audio effects and filters from the left side
+            </div>
+            <div class="effect-editor col-sm-5" *ngIf="selected">
+                <div class="effect-property" *ngFor="let property of effectProperties">
+                    <div class="form-group" *ngIf="property.type === 'integer' || property.type === 'float'">
+                        <label>{{beautify(property.name)}}</label>
+                        <input type="range"
+                            [(ngModel)]="selected.properties[property.name]"
+                            (ngModelChange)="changedEffectProperties()"
+                            [value]="selected.properties[property.name] || property.min"
+                            name="rangeInput"
+                            min="{{property.min}}"
+                            max="{{property.max}}"
+                            step="{{property.step}}" />
+                        <span>{{selected.properties[property.name]}}</span>
+                    </div>
+                    <div class="form-group" *ngIf="property.type === 'boolean'">
+                        <label>{{beautify(property.name)}}</label>
+                        <input type="checkbox" 
+                            value="1" 
+                            [(ngModel)]="selected.properties[property.name]"
+                            (ngModelChange)="changedEffectProperties()" />
+                    </div>
+                    <div class="form-group" *ngIf="property.type === 'list'">
+                        <label>{{beautify(property.name)}}</label>
+                        <select class="form-control"                             
+                            [(ngModel)]="selected.properties[property.name]"
+                            (ngModelChange)="changedEffectProperties()">
+                                <option *ngFor="let item of property.items" value="{{item}}">{{item}}</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" 
+                    class="btn btn-primary btn-block" 
+                    (click)="applyEffectChanges()"
+                    [disabled]="!selectedEffectChanged">
+                        Apply
+                </button>
+            </div>
+            <div class="effect-editor-options">
+                <button type="button" class="btn btn-primary" 
+                    (click)="playWorkspace()"
+                    [disabled]="waveAudio.loadedFiles.length === 0">
+                    <i class="fa fa-play" aria-hidden="true" [hidden]="playing"></i>
+                    <i class="fa fa-stop" aria-hidden="true" [hidden]="!playing"></i>
+                </button>
+                <span>from</span>
+                <input type="time" 
+                    class="form-control inline-control time-input"
+                    name="startTime"
+                    [(ngModel)]="startTime"
+                    placeholder="00:00"
+                    [disabled]="waveAudio.loadedFiles.length === 0"/>
+            </div>
+        </div>
+    </div>
+</div>

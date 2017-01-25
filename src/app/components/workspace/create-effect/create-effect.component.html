@@ -1,0 +1,52 @@
+<form class="create-effect-form">
+    <div class="form-group">
+        <label for="effectTypeSelect">Type</label>
+        <select class="form-control"
+          id="effectTypeSelect"
+          name="effectName"
+          [(ngModel)]="effectName">
+            <option selected value="">Choose...</option>
+            <option *ngFor="let effect of effectNames" [value]="effect">{{effect}}</option>
+        </select>
+    </div>
+    <div class="row no-gutters">
+        <div class="form-group col-sm-7">
+            <label for="effectForSelect">For</label>
+            <select id="effectForSelect"
+              class="form-control"
+              name="fileId"
+              [(ngModel)]="fileId"
+              [disabled]="!loadedService.total || timeChanged">
+                <option selected value="0">Select source...</option>
+                <option *ngFor="let file of loadedService.files" [value]="file.id">{{file.name}}</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-5 effect-time-wrapper">
+            <label for="startTimeInput">
+              From <a href="javascript:void(0);" class="time-reset" [hidden]="!timeChanged" (click)="onReset()">Reset</a>
+            </label>
+            <div>
+                <input type="time"
+                  class="form-control inline-control time-input"
+                  name="startTime"
+                  [(ngModel)]="startTime"
+                  (change)="onTimeInputsKeyPress()"
+                  placeholder="00:00"
+                  [disabled]="fileId != 0" />
+                <span>to</span>
+                <input
+                  type="time"
+                  class="form-control inline-control time-input"
+                  name="endTime"
+                  [(ngModel)]="endTime"
+                  (change)="onTimeInputsKeyPress()"
+                  placeholder="00:00"
+                  [disabled]="fileId != 0" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group pull-right">
+        <button type="button" class="btn btn-danger" (click)="onCreate()" [disabled]="incompleteData()">Create</button>
+        <button type="button" class="btn btn-link" (click)="onCancel()">Cancel</button>
+    </div>
+</form>

@@ -1,0 +1,13 @@
+<div class="item-name">{{file.name}}<span>{{file.length}}</span></div>
+<div class="options-wrapper">
+  <a class="options-play" (click)="playFile()" [ngClass]="{'active': file.playing}">
+    <i class="fa fa-play" aria-hidden="true" [hidden]="file.playing"></i>
+    <i class="fa fa-pause" aria-hidden="true" [hidden]="!file.playing"></i>
+  </a>
+  <a class="options-add" (click)="loadFile()" [ngClass]="{'active': file.loaded}">
+    <i class="fa fa-plus" aria-hidden="true" [hidden]="file.loaded"></i>
+    <i class="fa fa-minus" aria-hidden="true" [hidden]="!file.loaded"></i>
+  </a>
+</div>
+<audio src="{{fullPath}}" #player preload="auto"></audio>
+

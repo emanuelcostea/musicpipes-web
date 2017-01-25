@@ -1,0 +1,10 @@
+<div class="box">
+  <h2>Library</h2>
+  <p>{{sourcesService.total}} audio files</p>
+  <div class="l-items">
+    <library-item class="l-item" 
+      *ngFor="let file of sourcesService.files"
+      [file]="file">
+    </library-item>
+  </div>
+</div>

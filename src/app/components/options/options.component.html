@@ -1,0 +1,13 @@
+<div class="box">
+  <h2>Room {{roomService.room}}
+    <button type="button" class="btn btn-link"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+    <button type="button" class="btn btn-danger" [hidden]="true">Create room</button>
+  </h2>
+  <p>informations about <em>{{onlineService.total}}</em> active users</p>
+  <ul class="l-online">
+    <li *ngFor="let session of this.onlineService.sessions" [ngClass]="{'active': session.id == sessionId}">
+      <i class="fa fa-user" aria-hidden="true"></i>
+      {{session.name}}
+    </li>
+  </ul>
+</div>
