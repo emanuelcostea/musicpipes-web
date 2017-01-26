@@ -60,6 +60,10 @@ export class RoomService extends BaseService {
       this.client.subscribe('/room/' + roomId, (u, f) => this.inRoom(u, f), this.subscribeError);
       this.client.subscribe('/room/' + roomId + '/status', (u, f) => this.inRoomStatus(u, f), this.subscribeError);
 
+      this.client.request('/ws/online', (err, payload) => {
+        this.onlineService.sessions = payload;  
+      });
+
       callback();
     });
   }
