@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Client } from 'nes/client';
 
 import { AppSettings } from '../app.settings';
+import { HttpService } from './http.service';
 import { BaseService } from './base.service';
 import { OnlineService } from './online.service';
 
@@ -16,7 +16,7 @@ export class RoomService extends BaseService {
   room_id: number;
 
   constructor(
-    protected http: Http, 
+    protected http: HttpService, 
     protected onlineService: OnlineService
   ) { 
     super(http);

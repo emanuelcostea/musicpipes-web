@@ -9,14 +9,14 @@ export class HttpService extends Http {
 
   constructor (backend: XHRBackend, options: RequestOptions) {
     let userObj = JSON.parse(localStorage.getItem('currentUser'));
-    let token = userObj.token;
+    let token = userObj ? userObj.token : null;
     options.headers.set('Authorization', token);
     super(backend, options);
   }
 
   request(url: string|Request, options?: RequestOptionsArgs): Observable<Response> {
     let userObj = JSON.parse(localStorage.getItem('currentUser'));
-    let token = userObj.token;
+    let token = userObj ? userObj.token : null;
     if (typeof url === 'string') { // meaning we have to add the token to the options, not in url
       if (!options) {
         options = { headers: new Headers() };
