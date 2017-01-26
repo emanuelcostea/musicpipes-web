@@ -6,7 +6,7 @@
             <app-create-effect [waveAudio]="waveAudio" [popover]="popover"></app-create-effect>
         </template>
         <div class="effects-list-wrapper row">
-            <div class="effects-list col-sm-3" *ngIf="waveAudio.effects.length > 0">
+            <div class="effects-list col-lg-4 col-xl-3" *ngIf="waveAudio.effects.length > 0">
                 <div class="effect-item"
                         *ngFor="let effect of waveAudio.effects"
                         (click)="selected = effect"
@@ -22,13 +22,13 @@
                     </div>
                 </div>
             </div>
-            <div class="effect-editor-empty col-sm-5" *ngIf="waveAudio.loadedFiles.length === 0">
+            <div class="effect-editor-empty col-lg-6 col-xl-6" *ngIf="waveAudio.loadedFiles.length === 0">
             select an audio file from the right side
             </div>
-            <div class="effect-editor-empty col-sm-5" *ngIf="waveAudio.loadedFiles.length > 0 && waveAudio.effects.length === 0">
+            <div class="effect-editor-empty col-lg-6 col-xl-6" *ngIf="waveAudio.loadedFiles.length > 0 && waveAudio.effects.length === 0">
             add audio effects and filters from the left side
             </div>
-            <div class="effect-editor col-sm-5" *ngIf="selected">
+            <div class="effect-editor col-sm-8 col-lg-8 col-xl-9" *ngIf="selected">
                 <div class="effect-property" *ngFor="let property of effectProperties">
                     <div class="form-group" *ngIf="property.type === 'integer' || property.type === 'float'">
                         <label>{{beautify(property.name)}}</label>

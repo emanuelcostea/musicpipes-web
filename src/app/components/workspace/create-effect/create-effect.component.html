@@ -10,7 +10,7 @@
         </select>
     </div>
     <div class="row no-gutters">
-        <div class="form-group col-sm-7">
+        <div class="form-group col-sm-7 select-audio-wrapper">
             <label for="effectForSelect">For</label>
             <select id="effectForSelect"
               class="form-control"
@@ -20,6 +20,7 @@
                 <option selected value="0">Select source...</option>
                 <option *ngFor="let file of loadedService.files" [value]="file.id">{{file.name}}</option>
             </select>
+            <span>or</span>
         </div>
         <div class="form-group col-sm-5 effect-time-wrapper">
             <label for="startTimeInput">
