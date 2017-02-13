@@ -28,7 +28,7 @@ html > body {
 }
 
 .app {
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 h1, h2 {
@@ -230,7 +230,7 @@ select.form-control {
     }
     .options {
         position: relative;
-        min-height: 500px;
+        min-height: 400px;
         width: 100%;
         background-color: $boxBackgroundColor;
         padding: 10px;
@@ -240,7 +240,7 @@ select.form-control {
             border-bottom: none;
         }
         .effects-list-wrapper {
-            min-height: 500px;
+            min-height: 400px;
             margin: 0;
         }
         .effects-list {
@@ -264,7 +264,7 @@ select.form-control {
                 .effect-notification {
                     vertical-align: top;
                     font-size: 9px;
-                    padding-top: 6px;
+                    padding-top: 5px;
                 }
                 .effect-name {
                     display: inline-block;
